@@ -13,11 +13,19 @@ class SuggestionsOverlay extends Component {
     scrollFocusedIntoView: PropTypes.bool,
     isLoading: PropTypes.bool,
     onSelect: PropTypes.func,
+    handleScroll: PropTypes.func,
   }
 
   static defaultProps = {
     suggestions: {},
     onSelect: () => null,
+    handleScroll: () => null,
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.handleScrollInternal = this.handleScrollInternal.bind(this);
   }
 
   componentDidUpdate() {
@@ -55,6 +63,7 @@ class SuggestionsOverlay extends Component {
     return (
       <div {...style} onMouseDown={onMouseDown}>
         <ul
+          onScroll={this.handleScrollInternal}
           ref={el => {
             this.suggestionsRef = el
           }}
@@ -129,6 +138,10 @@ class SuggestionsOverlay extends Component {
 
   select(suggestion, descriptor) {
     this.props.onSelect(suggestion, descriptor)
+  }
+
+  handleScrollInternal(evt) {
+    this.props.handleScroll(evt, this.suggestionsRef);
   }
 }
 

@@ -86,6 +86,7 @@ const propTypes = {
   onSelect: PropTypes.func,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
+  handleScroll: PropTypes.func,
 
   children: PropTypes.oneOfType([
     PropTypes.element,
@@ -105,6 +106,7 @@ class MentionsInput extends React.Component {
     onKeyDown: () => null,
     onSelect: () => null,
     onBlur: () => null,
+    handleScroll: () => null,
   }
 
   constructor(props) {
@@ -211,6 +213,7 @@ class MentionsInput extends React.Component {
         position={this.state.suggestionsPosition}
         focusIndex={this.state.focusIndex}
         scrollFocusedIntoView={this.state.scrollFocusedIntoView}
+        handleScroll={this.props.handleScroll}
         ref={el => {
           this.suggestionsRef = el
         }}
